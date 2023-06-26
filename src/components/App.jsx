@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useAuth } from './Hooks/useAuth';
 import { refreshUser } from '../redux/auth/operations';
 import Loader from './Loader/Loader';
 import { Layout } from './Layout';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
 import { Route, Routes } from 'react-router-dom';
-import { lazy } from 'react';
 
 const HomePage = lazy(() => import('../pages/Home.js'));
 const RegisterPage = lazy(() => import('../pages/Register.js'));
@@ -15,11 +13,13 @@ const LoginPage = lazy(() => import('../pages/Login.js'));
 const ContactsPage = lazy(() => import('../pages/Contacts.js'));
 
 const App = () => {
+  const [isRefreshing, setIsRefreshing] = useState(true);
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
+    setIsRefreshing(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return isRefreshing ? (
