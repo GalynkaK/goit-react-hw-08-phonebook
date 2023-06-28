@@ -1,10 +1,8 @@
-import { getContacts, getFilter } from 'redux/contacts/selectors';
+import React from 'react';
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { delContact } from 'redux/contacts/operation';
-
-
-
+import { getContacts, getFilter } from 'redux/contacts/selectors';
 
 const getVisibleContacts = (contacts, filter) => {
   if (!filter) {
@@ -27,7 +25,7 @@ const ContactList = () => {
   return (
     <div className={css.contactList}>
       <ul className={css.contactList}>
-        {visibleContacts.map((contact, id) => (
+        {visibleContacts.map((contact) => (
           <li key={contact.id} className={css.contactItem}>
             {contact.name}: {contact.number}
             <button

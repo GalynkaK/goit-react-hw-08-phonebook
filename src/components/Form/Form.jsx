@@ -26,12 +26,12 @@ const Form = () => {
 
     const form = e.currentTarget;
     const contactsList = [...contacts];
-    if (
-      contactsList.findIndex(
-        (contact) => contact.name.toLowerCase() === name.toLowerCase()
-      ) !== -1
-    ) {
-      alert(`${name} is already in contacts!`);
+    const duplicateContact = contactsList.find(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (duplicateContact) {
+      alert(`${duplicateContact.name} is already in contacts!`);
     } else {
       dispatch(addContact({ name: name, number: number }));
       setName("");
